@@ -27,5 +27,5 @@ jobs:
             curr_dir=${pwd}
             echo ${curr_dir}
             docker run -t -d -w /home/build/workspace -v /home/circleci/project:/home/build/workspace:rw --privileged --name gbs_test h1g1/tizen-build-docker
-            docker exec gbs_test bash -lc "wget https://download.tizen.org/snapshots/tizen/unified/latest/repos/standard/packages/armv7l/dotnet-build-tools-2.0.0-25.1.armv7l.rpm; gbs build -A armv7l"
+            docker exec gbs_test bash -lc "apt-get update; apt-get install -y wget; wget https://download.tizen.org/snapshots/tizen/unified/latest/repos/standard/packages/armv7l/dotnet-build-tools-2.0.0-25.1.armv7l.rpm; gbs build -A armv7l"
             
