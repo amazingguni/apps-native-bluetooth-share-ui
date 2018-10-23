@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Bring up docker container
           command: |
-            docker run -t -d -w /opt/repo -v /home/circleci/project:/opt/repo:rw --privileged --network host --name gbs_test retzero/gbs_ubuntu16.04
+            docker run -t -d -w /opt/repo -v /home/circleci/project:/opt/repo:rw --privileged --name gbs_test retzero/gbs_ubuntu16.04
 
       - run:
           name: Check wget speed inside container
