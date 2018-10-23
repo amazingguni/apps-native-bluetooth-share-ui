@@ -1,0 +1,9 @@
+#include "image_macro.edc"
+
+collections {
+   base_scale: 1.8;
+   RESOURCE_IMAGE_TRANSFER("bluetooth_download_failed.png");
+   RESOURCE_IMAGE_TRANSFER("bluetooth_download_complete.png");
+   RESOURCE_IMAGE_TRANSFER("bluetooth_upload_failed.png");
+   RESOURCE_IMAGE_TRANSFER("bluetooth_upload_complete.png");
+}

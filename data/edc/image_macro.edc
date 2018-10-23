@@ -1,0 +1,55 @@
+#define RESOURCE_IMAGE( FILE_NAME ) \
+   group { \
+      name: FILE_NAME; \
+      images.image: FILE_NAME COMP; \
+      parts { \
+         part { name: "image"; \
+            description { \
+               state: "default" 0.0; \
+               image.normal: FILE_NAME; \
+               aspect: 1 1; \
+               aspect_preference: BOTH; \
+            } \
+        } \
+      } \
+   }
+
+#define RESOURCE_IMAGE_TRANSFER( FILE_NAME ) \
+   group { \
+      name: FILE_NAME; \
+      images.image: FILE_NAME COMP; \
+      parts { \
+         part { name: "image"; \
+            description { \
+               state: "default" 0.0; \
+               image.normal: FILE_NAME; \
+               aspect: 1 1; \
+               aspect_preference: BOTH; \
+               color: 0 0 0 255; \
+            } \
+             description { \
+               state: "selected" 0.0; \
+               image.normal: FILE_NAME; \
+               aspect: 1 1; \
+               aspect_preference: BOTH; \
+               color: 0 0 0 255; \
+            } \
+        } \
+      } \
+   }
+
+#define RESOURCE_IMAGE_LOSSY( FILE_NAME ) \
+   group { \
+      name: FILE_NAME; \
+      images.image: FILE_NAME LOSSY 85; \
+      parts { \
+         part { name: "image"; \
+            description { \
+               state: "default" 0.0; \
+               image.normal: FILE_NAME; \
+               aspect: 1 1; \
+               aspect_preference: BOTH; \
+            } \
+         } \
+      } \
+   }

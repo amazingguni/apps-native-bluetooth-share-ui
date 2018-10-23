@@ -1,0 +1,178 @@
+#define LEFT_PADDING_WIDTH	32
+#define ICON_SIZE 64 64
+#define TIMER_INTERVAL 0.3
+
+#define DSC_FROM_L( STATE, PARAM ) \
+   description { state: STATE; \
+      fixed: 1 0; \
+      align: 0.0 0.5; \
+      rel2.relative: 0.0 1.0; \
+      PARAM \
+   }
+
+#define DSC_FROM_R( STATE, PARAM ) \
+   description { state: STATE; \
+      fixed: 1 0; \
+      align: 1.0 0.5; \
+      rel1.relative: 1 0; \
+      PARAM \
+   }
+
+#define LR_PADDING() \
+	part { \
+		name: "elm.padding.left"; \
+		type: SPACER; \
+		scale: 1; \
+		DSC_FROM_L("default" 0.0, \
+			min: LEFT_PADDING_WIDTH 0; \
+			max: LEFT_PADDING_WIDTH -1; \
+		) \
+	} \
+	part { \
+		name: "elm.padding.right"; \
+		type: SPACER; \
+		scale: 1; \
+		DSC_FROM_R("default" 0.0, \
+			min: 0 0; \
+			max: 0 -1; \
+		) \
+	}
+
+#define DESCRIPTION( STATE, NORMAL ) \
+	description { state: STATE; \
+		inherit: "default" 0.0; \
+		image { \
+			normal: NORMAL; \
+			border: 0 0 0 0; \
+			border_scale: 1; \
+		} \
+		visible: 1; \
+		color_class: "AO002"; \
+	}
+
+#define ROTATE_DESCRIPTION( STATE,  ANGLE) \
+	description { state: STATE; \
+		inherit: "default" 0.0; \
+		map { \
+			on: 1; \
+			smooth: 0; \
+			rotation { \
+				z: ANGLE; \
+			} \
+		} \
+		color_class: "AO002"; \
+	}
+
+#define PROGRAM(NAME, STATE, INTERVAL, AFTER) \
+	program { name: NAME; \
+		action: STATE_SET STATE; \
+		target: "elm.image.icon.ani"; \
+		transition: LINEAR INTERVAL; \
+		after: AFTER; \
+	}
+
+#define IMAGES( PARAM ) \
+	images { \
+		image: "bluetooth_" ## PARAM ## "_00.png" COMP; \
+		image: "bluetooth_" ## PARAM ## "_01.png" COMP; \
+		image: "bluetooth_" ## PARAM ## "_02.png" COMP; \
+		image: "bluetooth_" ## PARAM ## "_03.png" COMP; \
+		image: "bluetooth_" ## PARAM ## "_04.png" COMP; \
+		image: "bluetooth_" ## PARAM ## "_05.png" COMP; \
+	}
+
+collections {
+	base_scale: 2.6;
+
+	group {
+		name: "bt_share_download";
+
+		IMAGES( "download" )
+
+		parts {
+
+			LR_PADDING()
+
+			part {
+				name: "elm.image.icon.ani";
+				type: IMAGE;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 1 0; to_x: "elm.padding.left"; }
+					rel2 { relative: 0 1; to_x: "elm.padding.right"; }
+					min: ICON_SIZE;
+					max: ICON_SIZE;
+					color_class: "W0114";
+				}
+
+				DESCRIPTION( "downloading0" 0.0, "bluetooth_download_00.png" )
+				DESCRIPTION( "downloading1" 0.0, "bluetooth_download_01.png" )
+				DESCRIPTION( "downloading2" 0.0, "bluetooth_download_02.png" )
+				DESCRIPTION( "downloading3" 0.0, "bluetooth_download_03.png" )
+				DESCRIPTION( "downloading4" 0.0, "bluetooth_download_04.png" )
+				DESCRIPTION( "downloading5" 0.0, "bluetooth_download_05.png" )
+			}
+		}
+
+		programs {
+			program {
+				signal: "load";
+				source: "";
+				after: "animation0";
+			}
+			PROGRAM("animation0", "downloading0" 0.0, 0.0, "animation1")
+			PROGRAM("animation1", "downloading1" 0.0, TIMER_INTERVAL, "animation2")
+			PROGRAM("animation2", "downloading2" 0.0, TIMER_INTERVAL, "animation3")
+			PROGRAM("animation3", "downloading3" 0.0, TIMER_INTERVAL, "animation4")
+			PROGRAM("animation4", "downloading4" 0.0, TIMER_INTERVAL, "animation5")
+			PROGRAM("animation5", "downloading5" 0.0, TIMER_INTERVAL, "animation0")
+		}
+	}
+
+	group {
+		name: "bt_share_upload";
+
+		IMAGES( "upload" )
+
+		parts {
+
+			LR_PADDING()
+
+			part {
+				name: "elm.image.icon.ani";
+				type: IMAGE;
+				scale: 1;
+				description {
+					state: "default" 0.0;
+					rel1 { relative: 1 0; to_x: "elm.padding.left"; }
+					rel2 { relative: 0 1; to_x: "elm.padding.right"; }
+					min: ICON_SIZE;
+					max: ICON_SIZE;
+					color_class: "W0114";
+				}
+
+				DESCRIPTION( "uploading0" 0.0, "bluetooth_upload_00.png" )
+				DESCRIPTION( "uploading1" 0.0, "bluetooth_upload_01.png" )
+				DESCRIPTION( "uploading2" 0.0, "bluetooth_upload_02.png" )
+				DESCRIPTION( "uploading3" 0.0, "bluetooth_upload_03.png" )
+				DESCRIPTION( "uploading4" 0.0, "bluetooth_upload_04.png" )
+				DESCRIPTION( "uploading5" 0.0, "bluetooth_upload_05.png" )
+			}
+		}
+
+		programs {
+			program {
+				signal: "load";
+				source: "";
+				after: "animation0";
+			}
+			PROGRAM("animation0", "uploading0" 0.0, 0.0, "animation1")
+			PROGRAM("animation1", "uploading1" 0.0, TIMER_INTERVAL, "animation2")
+			PROGRAM("animation2", "uploading2" 0.0, TIMER_INTERVAL, "animation3")
+			PROGRAM("animation3", "uploading3" 0.0, TIMER_INTERVAL, "animation4")
+			PROGRAM("animation4", "uploading4" 0.0, TIMER_INTERVAL, "animation5")
+			PROGRAM("animation5", "uploading5" 0.0, TIMER_INTERVAL, "animation0")
+		}
+	}
+}
