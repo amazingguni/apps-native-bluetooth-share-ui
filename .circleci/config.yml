@@ -13,6 +13,8 @@ jobs:
           command: |
             cat /etc/issue
             cat /etc/os-release
+            pwd
+            echo ${USER}
             #cp .gbs.conf ../
             #sudo sh -c "echo \"deb [trusted=yes] http://download.tizen.org/tools/latest-release/Ubuntu_14.04/ /\" >> /etc/apt/sources.list.d/tizen.list"
             #sudo apt-get update
