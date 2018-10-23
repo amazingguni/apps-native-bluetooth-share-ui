@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: h1g1/tizen-build-docker
+    working_directory: ~/repo
+    steps:
+      - checkout
+
+      - run: 
+          name: run inside docker
+          command: |
+            cp .gbs.conf /root/
+            gbs build -A armv7l
+
