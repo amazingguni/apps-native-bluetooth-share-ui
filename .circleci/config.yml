@@ -3,7 +3,7 @@ jobs:
   build:
     #docker:
     #  - image: h1g1/tizen-build-docker
-    working_directory: ~/repo
+    working_directory: /home/build/workspace
     machine: true
     steps:
       - checkout
@@ -13,9 +13,14 @@ jobs:
           command: |
             cat /etc/issue
             cat /etc/os-release
-            cp .gbs.conf ../
-            sudo sh -c "echo \"deb [trusted=yes] http://download.tizen.org/tools/latest-release/Ubuntu_14.04/ /\" >> /etc/apt/sources.list.d/tizen.list"
-            sudo apt-get update
-            sudo apt-get install gbs
-            gbs build -A armv7l --clean
+            #cp .gbs.conf ../
+            #sudo sh -c "echo \"deb [trusted=yes] http://download.tizen.org/tools/latest-release/Ubuntu_14.04/ /\" >> /etc/apt/sources.list.d/tizen.list"
+            #sudo apt-get update
+            #sudo apt-get install gbs
+            #gbs build -A armv7l --clean
+      - run:
+          name: run from machine option with docker
+          command: |
+            docker run -t -d -w /home/build/workspace -v ${pwd}:/home/build/workspace:rw --name gbs_test h1g1/tizen-build-docker
+            docker exec gbs_test bash -lc "gbs build -A armv7l"
             
