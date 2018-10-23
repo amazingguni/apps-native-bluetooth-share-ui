@@ -6,12 +6,20 @@ jobs:
       - checkout
 
       - run: 
-          name: Check wget speed on VM
+          name: Check wget speed on Host VM
           command: |
             cat /etc/issue
             cat /etc/os-release
             pwd
             wget https://download.tizen.org/snapshots/tizen/unified/latest/repos/standard/packages/armv7l/dotnet-build-tools-2.0.0-25.1.armv7l.rpm
+
+      - run: 
+          name: Build on Host VM
+          command: |
+            sudo sh -c "echo \"deb [trusted=yes] http://download.tizen.org/tools/latest-release/Ubuntu_14.04/ /\" >> /etc/apt/sources.list.d/tizen.list"
+            sudo apt-get update
+            sudo apt-get install gbs
+            gbs build -A armv7l --clean
 
       - run:
           name: Bring up docker container
@@ -24,6 +32,6 @@ jobs:
             docker exec gbs_test bash -lc "wget https://download.tizen.org/snapshots/tizen/unified/latest/repos/standard/packages/armv7l/dotnet-build-tools-2.0.0-25.1.armv7l.rpm"
 
       - run:
-          name: Build with gbs
+          name: Build inside Docker
           command: |
             docker exec gbs_test bash -lc "gbs build -A armv7l"
