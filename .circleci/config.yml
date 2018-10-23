@@ -1,15 +1,21 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: h1g1/tizen-build-docker
+    #docker:
+    #  - image: h1g1/tizen-build-docker
     working_directory: ~/repo
+    machine: true
     steps:
       - checkout
 
       - run: 
-          name: run inside docker
+          name: run from machine option
           command: |
-            cp .gbs.conf /root/
-            gbs build -A armv7l
-
+            cat /etc/issue
+            cat /etc/os-release
+            cp .gbs.conf ../
+            sudo sh -c "echo \"deb [trusted=yes] http://download.tizen.org/tools/latest-release/Ubuntu_16.04/ /\" >> /etc/apt/sources.list.d/tizen.list"
+            sudo apt-get update
+            sudo apt-get install gbs
+            gbs build -A armv7l --clean
+            
