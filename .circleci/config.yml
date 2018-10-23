@@ -26,6 +26,6 @@ jobs:
             pwd
             curr_dir=${pwd}
             echo ${curr_dir}
-            docker run -t -d -w /home/build/workspace -v /home/circleci/project:/home/build/workspace:rw --name gbs_test h1g1/tizen-build-docker
+            docker run -t -d -w /home/build/workspace -v /home/circleci/project:/home/build/workspace:rw --network host --privileged --name gbs_test h1g1/tizen-build-docker
             docker exec gbs_test bash -lc "gbs build -A armv7l"
             
