@@ -3,7 +3,7 @@ jobs:
   build:
     #docker:
     #  - image: h1g1/tizen-build-docker
-    working_directory: /home/build/workspace
+    #working_directory: /home/build/workspace
     machine: true
     steps:
       - checkout
