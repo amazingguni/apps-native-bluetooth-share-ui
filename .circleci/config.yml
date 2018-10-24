@@ -6,14 +6,6 @@ jobs:
       - checkout
 
       - run: 
-          name: Check wget speed on Host VM
-          command: |
-            cat /etc/issue
-            cat /etc/os-release
-            pwd
-            wget https://download.tizen.org/snapshots/tizen/unified/latest/repos/standard/packages/armv7l/dotnet-build-tools-2.0.0-25.1.armv7l.rpm
-
-      - run: 
           name: Build on Host VM
           command: |
             sudo sh -c "echo \"deb [trusted=yes] http://download.tizen.org/tools/latest-release/Ubuntu_14.04/ /\" >> /etc/apt/sources.list.d/tizen.list"
@@ -27,11 +19,6 @@ jobs:
             docker run -t -d -w /opt/repo -v /home/circleci/project:/opt/repo:rw --privileged --network host --name gbs_test retzero/gbs_ubuntu16.04
 
       - run:
-          name: Check wget speed inside container
-          command: |
-            docker exec gbs_test bash -lc "wget https://download.tizen.org/snapshots/tizen/unified/latest/repos/standard/packages/armv7l/dotnet-build-tools-2.0.0-25.1.armv7l.rpm"
-
-      - run:
           name: Build inside Docker
           command: |
-            docker exec gbs_test bash -lc "gbs build -A armv7l"
+            docker exec gbs_test bash -lc "gbs build -A armv7l --clean"
